@@ -1,5 +1,6 @@
 const { DataTypes } = require("sequelize")
 const sequelize = require("../database")
+const Post = require('./post')
 
 const User = sequelize.define("User", {
     uuid: {
@@ -31,6 +32,12 @@ const User = sequelize.define("User", {
             notEmpty: { msg: 'password must not be empty' },
         },
     },
+}, {
+    sequelize,
+    tableName: 'users',
+    modelName: 'User',
 });
+
+User.hasMany(Post, { foreignKey: 'userId', as: 'posts' })
 
 module.exports = User
