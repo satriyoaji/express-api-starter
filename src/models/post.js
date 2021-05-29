@@ -10,6 +10,10 @@ const Post = sequelize.define("Post", {
   userId: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    references: {
+      model: User,
+      key: "userId"
+    }
   },
   content: {
     type: DataTypes.STRING,
@@ -21,6 +25,8 @@ const Post = sequelize.define("Post", {
   modelName: 'Post',
 });
 
-// Post.belongsTo(User, { foreignKey: 'userId', as: 'user' })
+Post.associate = function (models) {
+  Post.belongsTo(models.User, { foreignKey: 'userId', as: 'user' })
+};
 
 module.exports = Post

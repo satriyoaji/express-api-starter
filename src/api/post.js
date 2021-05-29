@@ -25,7 +25,7 @@ router.get('/posts',
     passport.authenticate("jwt", { session: false }),
     async (req, res) => {
         try {
-            const posts = await Post.findAll()
+            const posts = await Post.findAll({ include: 'user' })
 
             return res.json(posts)
         } catch (err) {
